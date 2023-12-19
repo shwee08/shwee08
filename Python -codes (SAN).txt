@@ -1,0 +1,1041 @@
+2. Create a class STORE to keep track of products (Product Code, Name and price). Display the menu of all products to the user. Generate bill as per order.
+
+class Store:
+    def __init__(self):
+        self.products = {}  # Dictionary to store product information {Product Code: (Name, Price)}
+
+    def add_product(self, code, name, price):
+        self.products[code] = (name, price)
+
+    def display_menu(self):
+        print("------ Products Available ------")
+        print("Code\tProduct\t\tPrice")
+        for code, (name, price) in self.products.items():
+            print(f"{code}\t{name}\t\t${price}")
+
+    def generate_bill(self, order):
+        total_cost = 0
+        print("\n------ Bill ------")
+        print("Product\t\tPrice")
+        for code, quantity in order.items():
+            if code in self.products:
+                name, price = self.products[code]
+                cost = price * quantity
+                total_cost += cost
+                print(f"{name}\t\t${price}\tQty: {quantity}\tTotal: ${cost}")
+            else:
+                print(f"Product with code {code} not found in the store.")
+        print(f"\nTotal Amount to be Paid: ${total_cost}")
+
+
+# Creating an instance of the Store
+my_store = Store()
+
+# Adding some products to the store
+my_store.add_product("P1", "Product 1", 10)
+my_store.add_product("P2", "Product 2", 20)
+my_store.add_product("P3", "Product 3", 30)
+
+# Displaying the menu
+my_store.display_menu()
+
+# Taking user input for the order
+order = {}
+while True:
+    product_code = input("Enter product code (or 'done' to finish): ")
+    if product_code.lower() == 'done':
+        break
+    if product_code in my_store.products:
+        quantity = int(input("Enter quantity: "))
+        order[product_code] = quantity
+    else:
+        print("Invalid product code. Please try again.")
+
+# Generating a bill based on the user's order
+my_store.generate_bill(order)
+
+3. Write a Python program to sort a list of elements using the selection sort algorithm
+
+def selection_sort(arr):
+    n = len(arr)
+
+    for i in range(n - 1):
+        min_index = i
+
+        # Find the index of the minimum element in the unsorted part
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+
+        # Swap the found minimum element with the first element
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+
+    return arr
+
+
+# Taking user input for the list of elements
+user_input = input("Enter elements separated by spaces: ")
+try:
+    user_list = [int(x) for x in user_input.split()]
+    sorted_list = selection_sort(user_list)
+    print("Sorted list:", sorted_list)
+except ValueError:
+    print("Please enter valid integers separated by spaces.")
+
+4. Write a Python class that has two methods get_string and print_string. Get_string accept a string from the user and print_string print the string in upper case
+
+class StringModifier:
+    def __init__(self):
+        self.user_string = ""
+
+    def get_string(self):
+        self.user_string = input("Enter a string: ")
+
+    def print_string(self):
+        print("Uppercase string:", self.user_string.upper())
+
+
+# Example usage:
+string_modifier = StringModifier()
+string_modifier.get_string()  # Accept a string from the user
+string_modifier.print_string()  # Print the string in uppercase
+
+5. Write a python program to count repeated characters in a string 
+Sample String :”thequickbrownfoxjumpsoverthelazydog”
+Expected output:
+o  4
+e  3
+u  2
+h  2
+r   2
+t   2
+
+
+def count_repeated_chars(input_string):
+    char_count = {}
+    for char in input_string:
+        if char in char_count:
+            char_count[char] += 1
+        else:
+            char_count[char] = 1
+
+    repeated_chars = {char: count for char, count in char_count.items() if count > 1}
+    sorted_repeated_chars = sorted(repeated_chars.items(), key=lambda x: x[1], reverse=True)
+
+    for char, count in sorted_repeated_chars:
+        print(f"{char}  {count}")
+
+
+# Sample String
+sample_string = "thequickbrownfoxjumpsoverthelazydog"
+
+# Counting repeated characters
+print("Expected output:")
+count_repeated_chars(sample_string)
+
+6. Print the pyramid
+*
+*   *
+*   *    *
+      AND
+       Print the pattern
+       *    *    *
+       *    *    *
+       *    *    *
+
+
+def print_pyramid(rows):
+    for i in range(1, rows + 1):
+        for j in range(i):
+            print("* ", end="")
+        print()
+
+
+# Print the pyramid with 3 rows
+print("Pyramid:")
+print_pyramid(3)
+
+def print_pattern(rows, columns):
+    for i in range(rows):
+        for j in range(columns):
+            print("* ", end="")
+        print()
+
+
+# Print the pattern with 3 rows and 3 columns
+print("\nPattern:")
+print_pattern(3, 3)
+
+7. Print the pyramid
+1
+1   2
+1   2    3
+
+def print_number_pyramid(rows):
+    for i in range(1, rows + 1):
+        for j in range(1, i + 1):
+            print(j, end="   ")
+        print()
+
+
+# Print the number pyramid with 3 rows
+print("Number Pyramid:")
+print_number_pyramid(3)
+
+8.Write a python program to print the alphabet pattern ‘O’ and the pattern ‘P’
+
+Expected Output:
+***
+*  *
+*  *
+*  *
+*  *
+*  *
+***
+AND
+****
+*     *
+*     *
+****
+*
+*
+*
+
+
+def print_pattern_O():
+    print("***")
+    for i in range(5):
+        print("*  *")
+    print("***")
+
+
+# Print pattern 'O'
+print("Pattern 'O':")
+print_pattern_O()
+
+def print_pattern_P():
+    print("****")
+    for i in range(3):
+        print("*   *")
+    print("****")
+    for i in range(3):
+        print("*")
+
+
+# Print pattern 'P'
+print("\nPattern 'P':")
+print_pattern_P()
+
+
+9.Create an EMPLOYEE class for storing details(Name, Designation, gender, date of joining and salary).Define function members to compute
+a.Total number of employees in an organization
+b.Count male and female employees
+c.An employee with a salary of more than 10,000
+d.Employee with designation “Manager”
+
+
+class Employee:
+    total_employees = 0
+    male_count = 0
+    female_count = 0
+    employees_list = []
+
+    def __init__(self, name, designation, gender, date_of_joining, salary):
+        self.name = name
+        self.designation = designation
+        self.gender = gender
+        self.date_of_joining = date_of_joining
+        self.salary = salary
+        Employee.total_employees += 1
+        Employee.employees_list.append(self)
+        if gender.lower() == 'male':
+            Employee.male_count += 1
+        elif gender.lower() == 'female':
+            Employee.female_count += 1
+
+    @staticmethod
+    def total_employee_count():
+        return Employee.total_employees
+
+    @staticmethod
+    def count_male_female():
+        return Employee.male_count, Employee.female_count
+
+    @staticmethod
+    def salary_above_10000():
+        return [emp for emp in Employee.employees_list if emp.salary > 10000]
+
+    @staticmethod
+    def find_managers():
+        return [emp for emp in Employee.employees_list if emp.designation.lower() == 'manager']
+
+
+# User input for creating employees
+num_employees = int(input("Enter the number of employees: "))
+
+for i in range(num_employees):
+    print(f"\nEnter details for Employee {i + 1}:")
+    name = input("Name: ")
+    designation = input("Designation: ")
+    gender = input("Gender: ")
+    date_of_joining = input("Date of Joining: ")
+    salary = float(input("Salary: "))
+
+    emp = Employee(name, designation, gender, date_of_joining, salary)
+
+# a. Total number of employees in an organization
+print("\nTotal Employees:", Employee.total_employee_count())
+
+# b. Count male and female employees
+male_count, female_count = Employee.count_male_female()
+print("Male Employees:", male_count)
+print("Female Employees:", female_count)
+
+# c. Employees with a salary of more than 10,000
+high_salary_employees = Employee.salary_above_10000()
+print("\nEmployees with salary more than 10,000:")
+for emp in high_salary_employees:
+    print(emp.name, "- Salary:", emp.salary)
+
+# d. Employees with designation "Manager"
+managers = Employee.find_managers()
+print("\nManagers in the organization:")
+for manager in managers:
+    print(manager.name)
+
+10.Write a Python program to construct the following pattern using a nested loop
+*
+*   *
+*   *    *
+*   *    *    *   
+*   *    *    *    *
+*   *    *    *   
+*   *    *
+*   *
+*
+
+rows = 5
+
+# Upper half of the pattern
+for i in range(0, rows):
+    for j in range(0, i + 1):
+        print("* ", end="")
+    print("")
+
+# Lower half of the pattern
+for i in range(rows, 0, -1):
+    for j in range(0, i - 1):
+        print("* ", end="")
+    print("")
+
+11. Given two lists create a third list by picking an odd-index element from the first list and even index elements from the second
+
+def create_third_list(list1, list2):
+    odd_index_elements = list1[1::2]  # Picks odd-index elements from the first list
+    even_index_elements = list2[0::2]  # Picks even-index elements from the second list
+    third_list = odd_index_elements + even_index_elements  # Concatenates both extracted lists
+    return third_list
+
+# Taking user input for the two lists
+input_list1 = input("Enter elements for the first list separated by spaces: ").split()
+input_list2 = input("Enter elements for the second list separated by spaces: ").split()
+
+# Converting input elements to integers
+list1 = [int(x) for x in input_list1]
+list2 = [int(x) for x in input_list2]
+
+result_list = create_third_list(list1, list2)
+print("Third List:", result_list)
+
+
+13.Write a Pandas program to add, subtract, multiple and divide two Pandas Series. 
+Sample Series: [2, 4, 6, 8, 10], [1, 3, 5, 7, 9]
+
+
+import pandas as pd
+
+# Creating Pandas Series
+series1 = pd.Series([2, 4, 6, 8, 10])
+series2 = pd.Series([1, 3, 5, 7, 9])
+
+# Adding two series
+result_add = series1 + series2
+print("Addition of two series:")
+print(result_add.to_string(index=False))
+
+# Subtracting second series from first series
+result_sub = series1 - series2
+print("\nSubtraction of two series:")
+print(result_sub.to_string(index=False))
+
+# Multiplying two series
+result_mul = series1 * series2
+print("\nMultiplication of two series:")
+print(result_mul.to_string(index=False))
+
+# Dividing first series by second series
+result_div = series1 / series2
+print("\nDivision of two series:")
+print(result_div.to_string(index=False))
+
+
+14. Write a Pandas program to sort a given Series. 
+
+Original Data Series: 
+
+0 100
+1 200
+2 python
+3 300.12
+4 400
+dtype: object
+
+
+import pandas as pd
+s = pd.Series(['100', '200', 'python', '300.12', '400'])
+print("Original Data Series:")
+print(s)
+new_s = pd.Series(s).sort_values()
+print(new_s)
+
+15.Write a Pandas program to select the 'name' and 'score' columns from the following DataFrame.
+Sample Python dictionary data and list labels:
+exam_data = {'name': ['Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Michael', 'Matthew', 'Laura', 'Kevin', 'Jonas'],
+'score': [12.5, 9, 16.5, np.nan, 9, 20, 14.5, np.nan, 8, 19],
+'attempts': [1, 3, 2, 3, 2, 3, 1, 1, 2, 1],
+'qualify': ['yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes']}
+labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+import pandas as pd
+import numpy as np
+
+# Sample data and labels
+exam_data = {
+    'name': ['Anastasia', 'Dima', 'Katherine', 'James', 'Emily', 'Michael', 'Matthew', 'Laura', 'Kevin', 'Jonas'],
+    'score': [12.5, 9, 16.5, np.nan, 9, 20, 14.5, np.nan, 8, 19],
+    'attempts': [1, 3, 2, 3, 2, 3, 1, 1, 2, 1],
+    'qualify': ['yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes']
+}
+labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+
+# Creating a DataFrame
+df = pd.DataFrame(exam_data, index=labels)
+
+# Selecting 'name' and 'score' columns
+selected_columns = df[['name', 'score']]
+
+print("Selected Columns 'name' and 'score':")
+print(selected_columns)
+
+
+16. Write a Python program to print alphabet pattern 'R' and pattern’O’ 
+Expected Output:
+ ****                                                                   
+ *   *                                                                  
+ *   *                                                                  
+ ****                                                                   
+ * *                                                                    
+ *  *                                                                   
+ *   *
+AND
+  ***                                                                   
+ *   *                                                                  
+ *   *                                                                  
+ *   *                                                                  
+ *   *                                                                 
+ *   *                                                                  
+  *** 
+
+
+def print_pattern_O():
+    print(" *** ")
+    for i in range(5):
+        print("*   *")
+    print(" *** ")
+
+# Print pattern 'O'
+print("Pattern 'O':")
+print_pattern_O()
+
+def print_pattern_R():
+    print("****")
+    print("*   *")
+    print("*   *")
+    print("****")
+    print("* *")
+    print("*  *")
+    print("*   *")
+
+# Print pattern 'R'
+print("\nPattern 'R':")
+print_pattern_R()
+
+
+17. Write a Python program that matches a word containing 'z', not at the start or end of the word and match a string that contains only upper and lowercase letters, numbers, and underscores by using function
+
+import re
+
+def match_z_word(word):
+    pattern = r'\b[^zZ]\w*z\w*[^zZ]\b'
+    return re.search(pattern, word) is not None
+
+def match_alphanumeric_underscore(string):
+    pattern = r'^[a-zA-Z0-9_]+$'
+    return re.search(pattern, string) is not None
+
+# Test the functions
+test_word = "Bazinga"
+test_string = "Hello_World_123"
+
+# Match a word containing 'z', not at the start or end of the word
+result_word = match_z_word(test_word)
+print(f"Word '{test_word}' contains 'z', not at start or end: {result_word}")
+
+# Match a string with only upper/lowercase letters, numbers, and underscores
+result_string = match_alphanumeric_underscore(test_string)
+print(f"String '{test_string}' contains only valid characters: {result_string}")
+
+
+18. Write a Python class named Rectangle constructed by a length and width and a method which will compute the area of a rectangle.
+
+class Rectangle:
+    def __init__(self, length, width):
+        self.length = length
+        self.width = width
+
+    def calculate_area(self):
+        return self.length * self.width
+
+# Taking user input for length and width of the rectangle
+length = int(input("Enter the length of the rectangle: "))
+width = int(input("Enter the width of the rectangle: "))
+
+# Creating a rectangle object
+my_rectangle = Rectangle(length, width)
+
+# Calculating the area of the rectangle
+area = my_rectangle.calculate_area()
+print(f"The area of the rectangle with length {length} and width {width} is: {area}")
+
+
+19. To calculate salary of an employee given his basic pay (take as input from user). Calculate gross salary of employee. Let HRA be 10 % of basic pay and TA be 5% of basic pay. Let employee pay professional tax as 2% of total salary. Calculate net salary payable after deductions.
+
+def calculate_salary(basic_pay):
+    HRA = 0.1 * basic_pay  # 10% of basic pay
+    TA = 0.05 * basic_pay  # 5% of basic pay
+    gross_salary = basic_pay + HRA + TA
+
+    professional_tax = 0.02 * gross_salary  # 2% of total salary
+    net_salary = gross_salary - professional_tax
+
+    return gross_salary, net_salary
+
+# Taking user input for basic pay
+basic_pay = float(input("Enter the basic pay of the employee: "))
+
+# Calculating gross and net salary
+gross, net = calculate_salary(basic_pay)
+
+# Displaying the results
+print(f"Gross Salary: {gross}")
+print(f"Net Salary (after deductions): {net}")
+
+
+20. Find the factorial of a number by using function. Accept a number from user and reverse the number by using function.
+
+def calculate_factorial(number):
+    factorial = 1
+    if number < 0:
+        return "Factorial does not exist for negative numbers."
+    elif number == 0:
+        return 1
+    else:
+        for i in range(1, number + 1):
+            factorial *= i
+        return factorial
+def reverse_number(number):
+    reversed_num = int(str(number)[::-1])
+    return reversed_num
+# Taking user input for a number
+num = int(input("Enter a number: "))
+
+# Calculating factorial
+factorial = calculate_factorial(num)
+print(f"The factorial of {num} is: {factorial}")
+
+# Reversing the number
+reversed_num = reverse_number(num)
+print(f"The reverse of {num} is: {reversed_num}")
+
+
+21. Write a Python program to count the number of words in a sentence
+
+def count_words(sentence):
+    # Split the sentence into words using whitespace as the delimiter
+    words = sentence.split()
+
+    # Count the number of words
+    word_count = len(words)
+    
+    return word_count
+
+# Taking user input for a sentence
+user_sentence = input("Enter a sentence: ")
+
+# Counting the number of words in the sentence
+num_words = count_words(user_sentence)
+print(f"The number of words in the sentence is: {num_words}")
+
+
+22. Write a Python program to add, multiply two matrices using numpy
+
+import numpy as np
+
+# Define two matrices
+matrix1 = np.array([[1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9]])
+
+matrix2 = np.array([[9, 8, 7],
+                    [6, 5, 4],
+                    [3, 2, 1]])
+
+# Matrix addition
+matrix_sum = np.add(matrix1, matrix2)
+print("Matrix Addition:")
+print(matrix_sum)
+
+# Matrix multiplication
+matrix_product = np.dot(matrix1, matrix2)
+print("\nMatrix Multiplication:")
+print(matrix_product)
+
+
+24.a) Write a program that matches a word containing ‘z’.
+b) Write a program that matches a string that has an a followed by zero or more b’s.
+
+import re
+
+def match_word_with_z(word):
+    pattern = re.compile(r'\b\w*z\w*\b')
+    return bool(pattern.search(word))
+
+# Example usage:
+word_to_check = "zebra"
+if match_word_with_z(word_to_check):
+    print(f'The word "{word_to_check}" contains the letter "z".')
+else:
+    print(f'The word "{word_to_check}" does not contain the letter "z".')
+import re
+
+def match_a_followed_by_bs(s):
+    pattern = re.compile(r'a(b*)')
+    match = pattern.match(s)
+    return bool(match)
+
+# Example usage:
+string_to_check = "abbb"
+if match_a_followed_by_bs(string_to_check):
+    print(f'The string "{string_to_check}" matches the pattern.')
+else:
+    print(f'The string "{string_to_check}" does not match the pattern.')
+
+
+25.Write a program that accepts a list from user and print the alternate element of list.
+
+def print_alternate_elements(input_list):
+    alternate_elements = input_list[::2]
+    print("Alternate Elements of the List:", alternate_elements)
+
+# Get input from the user
+user_input = input("Enter a list of elements separated by spaces: ")
+
+# Convert the input string into a list of elements
+user_list = user_input.split()
+
+# Call the function to print alternate elements
+print_alternate_elements(user_list)
+
+26.Write a program that reads an integer value n from the user, and then produces n lines of output. The first line contains 1 star, the second 2 stars, and so on until the last line, which should have n stars. Can you write this using only a single loop? Hint:
+Remember what the expression ‘+’*5 does.
+Enter a size: 5
++
+++
++++
+++++
++++++
+
+def print_star_pattern(n):
+    for i in range(1, n + 1):
+        stars = '+' * i
+        print(stars)
+
+# Get input from the user
+size = int(input("Enter a size: "))
+
+# Call the function to print the star pattern
+print_star_pattern(size)
+
+
+27. Sort following NumPy array
+Case 1: Sort array by the second row
+Case 2: Sort the array by the second column
+sampleArray = numpy.array([[34,43,73],[82,22,12],[53,94,66]])
+
+import numpy as np
+
+# Given NumPy array
+sampleArray = np.array([[34, 43, 73], [82, 22, 12], [53, 94, 66]])
+
+# Case 1: Sort array by the second row
+sorted_array_case1 = sampleArray[:, sampleArray[1, :].argsort()]
+
+# Case 2: Sort array by the second column
+sorted_array_case2 = sampleArray[sampleArray[:, 1].argsort()]
+
+# Print the sorted arrays
+print("Original Array:")
+print(sampleArray)
+
+print("\nCase 1: Sort array by the second row:")
+print(sorted_array_case1)
+
+print("\nCase 2: Sort array by the second column:")
+print(sorted_array_case2)
+
+
+28.Take two input strings, concatenate them, and print the output. Also, Reverse the string and print it.
+
+# Take two input strings from the user
+string1 = input("Enter the first string: ")
+string2 = input("Enter the second string: ")
+
+# Concatenate the strings
+concatenated_string = string1 + string2
+
+# Reverse the concatenated string
+reversed_string = concatenated_string[::-1]
+
+# Print the concatenated and reversed strings
+print("\nConcatenated String:", concatenated_string)
+print("Reversed String:", reversed_string)
+
+
+29. Write a Python program to find maximum and minimum K elements in Tuple. Take user input for K.
+
+
+# Take user input for K
+k = int(input("Enter the value of K: "))
+
+# Take user input for a tuple of numbers
+numbers_tuple = tuple(map(int, input("Enter a tuple of numbers separated by spaces: ").split()))
+
+# Check if K is valid
+if 0 < k <= len(numbers_tuple):
+    # Find and print the maximum K elements
+    max_k_elements = tuple(sorted(numbers_tuple, reverse=True)[:k])
+    print("Maximum", k, "elements:", max_k_elements)
+
+    # Find and print the minimum K elements
+    min_k_elements = tuple(sorted(numbers_tuple)[:k])
+    print("Minimum", k, "elements:", min_k_elements)
+else:
+    print("Invalid value of K. K should be between 1 and", len(numbers_tuple))
+
+
+31.Write a python program to check whether a string contains all letters of the alphabet
+
+def contains_all_letters(input_string):
+    # Convert the input string to lowercase to handle both uppercase and lowercase letters
+    input_string_lower = input_string.lower()
+
+    # Check if all letters of the alphabet are present in the string
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    for char in alphabet:
+        if char not in input_string_lower:
+            return False
+
+    return True
+
+# Take user input for a string
+user_input = input("Enter a string: ")
+
+# Check if the string contains all letters of the alphabet
+result = contains_all_letters(user_input)
+
+# Print the result
+if result:
+    print("The string contains all letters of the alphabet.")
+else:
+    print("The string does not contain all letters of the alphabet.")
+
+
+32. Write a Python class to implement pow(x,n)
+
+class PowerCalculator:
+    def calculate_power(self, x, n):
+        # Base case: x^0 = 1
+        if n == 0:
+            return 1
+
+        # Negative exponent case: x^(-n) = 1 / (x^n)
+        if n < 0:
+            x = 1 / x
+            n = -n
+
+        result = 1
+        current_product = x
+
+        while n > 0:
+            if n % 2 == 1:
+                result *= current_product
+            current_product *= current_product
+            n //= 2
+
+        return result
+
+# Take user input for base (x) and exponent (n)
+x = int(input("Enter the base (x): "))
+n = int(input("Enter the exponent (n): "))
+
+# Create an instance of PowerCalculator
+power_calculator = PowerCalculator()
+
+# Calculate and print the result
+result = power_calculator.calculate_power(x, n)
+print(f"{x}^{n} = {result}")
+
+33. Write a Python program to swap two elements in a list. Take user input for the swap index
+
+def swap_elements(my_list, index1, index2):
+    # Check if indices are within the valid range
+    if 0 <= index1 < len(my_list) and 0 <= index2 < len(my_list):
+        # Swap the elements
+        my_list[index1], my_list[index2] = my_list[index2], my_list[index1]
+        return True
+    else:
+        return False
+
+# Take user input for a list of elements
+user_input = input("Enter a list of elements separated by spaces: ")
+original_list = [int(item) for item in user_input.split()]
+
+# Take user input for the indices to swap
+index1 = int(input("Enter the first index to swap: "))
+index2 = int(input("Enter the second index to swap: "))
+
+# Call the function to swap elements
+success = swap_elements(original_list, index1, index2)
+
+# Print the result
+if success:
+    print(f"List after swapping indices {index1} and {index2}: {original_list}")
+else:
+    print("Invalid indices. Please ensure indices are within the valid range.")
+
+
+36. Write a Python program that calculates basic statistical operations, including mean, median, and standard deviation, on a given NumPy array
+
+import numpy as np
+
+def calculate_statistics(data):
+    mean_value = np.mean(data)
+    median_value = np.median(data)
+    std_deviation = np.std(data)
+    return mean_value, median_value, std_deviation
+
+# Take user input for a list of numeric values
+user_input = input("Enter a list of numeric values separated by spaces: ")
+numeric_values = np.array([float(item) for item in user_input.split()])
+
+# Calculate statistics
+mean, median, std_dev = calculate_statistics(numeric_values)
+
+# Print the results
+print("\nStatistics:")
+print(f"Mean: {mean}")
+print(f"Median: {median}")
+print(f"Standard Deviation: {std_dev}")
+
+37. Design a class hierarchy for a restaurant management system. Define the relevant attributes and methods for the classes.
+a. Create a base class Dish with attributes such as dish_name, price, and cuisine_type.
+b. Derive a subclass Appetizer from Dish to represent appetizer items.
+c. Further derive a class VegetarianAppetizer from Appetizer to represent vegetarian appetizer items.
+
+class Dish:
+    def __init__(self, dish_name, price, cuisine_type):
+        self.dish_name = dish_name
+        self.price = price
+        self.cuisine_type = cuisine_type
+
+    def display_details(self):
+        print(f"Dish: {self.dish_name}")
+        print(f"Price: ${self.price}")
+        print(f"Cuisine Type: {self.cuisine_type}")
+
+class Appetizer(Dish):
+    def __init__(self, dish_name, price, cuisine_type, is_vegetarian):
+        super().__init__(dish_name, price, cuisine_type)
+        self.is_vegetarian = is_vegetarian
+
+    def display_details(self):
+        super().display_details()
+        print(f"Vegetarian: {'Yes' if self.is_vegetarian else 'No'}")
+
+class VegetarianAppetizer(Appetizer):
+    def __init__(self, dish_name, price, cuisine_type, is_vegetarian, has_nuts):
+        super().__init__(dish_name, price, cuisine_type, is_vegetarian)
+        self.has_nuts = has_nuts
+
+    def display_details(self):
+        super().display_details()
+        print(f"Contains Nuts: {'Yes' if self.has_nuts else 'No'}")
+
+# Function to take user input for creating a dish
+def get_user_dish_input():
+    dish_name = input("Enter the dish name: ")
+    price = float(input("Enter the price: "))
+    cuisine_type = input("Enter the cuisine type: ")
+    return dish_name, price, cuisine_type
+
+# Function to take user input for creating an appetizer
+def get_user_appetizer_input():
+    dish_name, price, cuisine_type = get_user_dish_input()
+    is_vegetarian = input("Is it a vegetarian dish? (yes/no): ").lower() == "yes"
+    return dish_name, price, cuisine_type, is_vegetarian
+
+# Function to take user input for creating a vegetarian appetizer
+def get_user_vegetarian_appetizer_input():
+    dish_name, price, cuisine_type, is_vegetarian = get_user_appetizer_input()
+    has_nuts = input("Does it contain nuts? (yes/no): ").lower() == "yes"
+    return dish_name, price, cuisine_type, is_vegetarian, has_nuts
+
+# Example usage with user input:
+
+# Create instances of dishes with user input
+dish1 = Dish(*get_user_dish_input())
+dish2 = Appetizer(*get_user_appetizer_input())
+dish3 = VegetarianAppetizer(*get_user_vegetarian_appetizer_input())
+
+# Display details of dishes
+print("\nDish Details:")
+dish1.display_details()
+
+print("\nAppetizer Details:")
+dish2.display_details()
+
+print("\nVegetarian Appetizer Details:")
+dish3.display_details()
+
+38.Write a Python function to create and print a list where the values are square of numbers between 1 and 30 (both included)
+
+def generate_square_list(start, end):
+    square_list = [x**2 for x in range(start, end + 1)]
+    return square_list
+
+# Take user input for the range
+start_range = int(input("Enter the start of the range: "))
+end_range = int(input("Enter the end of the range: "))
+
+# Call the function with user input and print the result
+result_list = generate_square_list(start_range, end_range)
+print(result_list)
+
+39. Design a class hierarchy for a ticket booking management system. Define the relevant attributes and methods for the classes.
+a. Derive subclasses such as Ticket, MovieTicket, and ConcertTicket. Add appropriate attributes and methods to represent different types of tickets.
+b. Create a class BookingSystem that inherits from Ticket to manage the overall ticket booking process
+
+class Ticket:
+    def __init__(self, ticket_id, event_name, price):
+        self.ticket_id = ticket_id
+        self.event_name = event_name
+        self.price = price
+        self.is_booked = False
+
+    def display_details(self):
+        print(f"Ticket ID: {self.ticket_id}")
+        print(f"Event: {self.event_name}")
+        print(f"Price: ${self.price}")
+        print("Status: Booked" if self.is_booked else "Status: Available")
+
+    def book_ticket(self):
+        if not self.is_booked:
+            self.is_booked = True
+            print("Ticket booked successfully!")
+        else:
+            print("Ticket is already booked.")
+
+class MovieTicket(Ticket):
+    def __init__(self, ticket_id, movie_name, show_time, price):
+        super().__init__(ticket_id, f"Movie: {movie_name}, Show Time: {show_time}", price)
+        self.movie_name = movie_name
+        self.show_time = show_time
+
+    def display_details(self):
+        super().display_details()
+        print(f"Movie: {self.movie_name}")
+        print(f"Show Time: {self.show_time}")
+
+class ConcertTicket(Ticket):
+    def __init__(self, ticket_id, artist, venue, date, price):
+        super().__init__(ticket_id, f"Concert: {artist}, Venue: {venue}, Date: {date}", price)
+        self.artist = artist
+        self.venue = venue
+        self.date = date
+
+    def display_details(self):
+        super().display_details()
+        print(f"Artist: {self.artist}")
+        print(f"Venue: {self.venue}")
+        print(f"Date: {self.date}")
+
+class BookingSystem:
+    def __init__(self):
+        self.available_tickets = []
+
+    def add_ticket(self, ticket):
+        self.available_tickets.append(ticket)
+
+    def display_available_tickets(self):
+        print("Available Tickets:")
+        for ticket in self.available_tickets:
+            ticket.display_details()
+
+    def book_ticket(self, ticket_id):
+        for ticket in self.available_tickets:
+            if ticket.ticket_id == ticket_id:
+                ticket.book_ticket()
+                print("\nBooked Ticket Details:")
+                ticket.display_details()
+                return
+        print("Ticket not found or already booked.")
+
+# Example usage with user input:
+
+# Create instances of tickets with user input
+movie_name = input("Enter movie name: ")
+show_time = input("Enter show time: ")
+movie_price = float(input("Enter movie ticket price: "))
+movie_ticket = MovieTicket(1, movie_name, show_time, movie_price)
+
+artist = input("Enter concert artist: ")
+venue = input("Enter concert venue: ")
+date = input("Enter concert date: ")
+concert_price = float(input("Enter concert ticket price: "))
+concert_ticket = ConcertTicket(2, artist, venue, date, concert_price)
+
+# Create a booking system
+booking_system = BookingSystem()
+
+# Add tickets to the booking system
+booking_system.add_ticket(movie_ticket)
+booking_system.add_ticket(concert_ticket)
+
+# Display available tickets
+booking_system.display_available_tickets()
+
+# Book a ticket with user input
+booking_id = int(input("Enter the ticket ID to book: "))
+booking_system.book_ticket(booking_id)
+
+
